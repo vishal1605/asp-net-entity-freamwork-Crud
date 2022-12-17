@@ -4,6 +4,10 @@ namespace firstEntityFramework.Models
 {
     public class TblUserContext : DbContext
     {
+        public TblUserContext()
+        {
+        }
+
         public TblUserContext(DbContextOptions<TblUserContext> option):base(option)
         {
             

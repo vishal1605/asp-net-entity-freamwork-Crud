@@ -1,5 +1,6 @@
 ﻿using firstEntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace firstEntityFramework.Controllers
 {
@@ -15,10 +16,29 @@ namespace firstEntityFramework.Controllers
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public RedirectResult LoginProcess(TblUser user)
+        {
+            TblUser u = _userContext.tblUser.FirstOrDefault(u => u.Name!.ToLower().Equals(user.Name!.ToLower()) && u.Psw!.ToLower().Equals(user.Psw!.ToLower()) && u.BtDeleted == 0)!;
+            if (u == null)
+                return Redirect("Login");
+            return Redirect("Dashboard/"+u.Name);
+        }
+
+        public IActionResult Dashboard(string name)
+        {
+            Console.WriteLine(name);
+            return View();
+        }
 
         public JsonResult AllData()
         {
             List<TblUser> list = _userContext.tblUser.Where(u=>u.BtDeleted.Equals(0)).ToList();
+            //List<TblUser> list = _userContext.tblUser.FromSqlRaw<TblUser>("select * from tbluser where btdeleted = 0").ToList();
+            //List<TblUser> list = _userContext.tblUser.FromSql<TblUser>($"select * from tbluser where btdeleted = 0").ToList();
             return new JsonResult(list);
         }
 
