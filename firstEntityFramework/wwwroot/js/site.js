@@ -57,6 +57,7 @@ function getAllData() {
         type: 'GET',
         url: '/Home/AllData',
         success: function (responseObject) {
+            console.log(responseObject)
             responseObject.forEach(e => {
                 let row = document.createElement('tr');
                 row.id = e.uid;

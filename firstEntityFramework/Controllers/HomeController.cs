@@ -36,7 +36,7 @@ namespace firstEntityFramework.Controllers
 
         public JsonResult AllData()
         {
-            List<TblUser> list = _userContext.tblUser.Where(u=>u.BtDeleted.Equals(0)).ToList();
+            List<TblUser> list = _userContext.tblUser.Include(e => e.Departments).ToList();
             //List<TblUser> list = _userContext.tblUser.FromSqlRaw<TblUser>("select * from tbluser where btdeleted = 0").ToList();
             //List<TblUser> list = _userContext.tblUser.FromSql<TblUser>($"select * from tbluser where btdeleted = 0").ToList();
             return new JsonResult(list);

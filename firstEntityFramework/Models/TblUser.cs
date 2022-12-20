@@ -15,5 +15,8 @@ namespace firstEntityFramework.Models
         public DateTime? UpdateDate { get; set; }
         public int ConditionRow { get; set; } = 0;
         public int BtDeleted { get; set; } = 0;
+
+        [ForeignKey("TId")]
+        public List<Department> Departments { get; set; }
     }
 }
